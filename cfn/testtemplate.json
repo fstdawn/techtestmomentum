@@ -7,11 +7,6 @@
           "MinLength": "1",
           "ConstraintDescription": "This parameter is required."
         },
-        "DbInstanceResourceId":{
-            "Type": "String",
-            "Description": " DBInstanceID",
-            "Default":  "technical-test-aurora-db-postgres96-1"
-        },
         "CreateRecorderForRDS":{
             "Type": "String",
             "Description": "Create Config recorder for RDS",
@@ -52,7 +47,7 @@
           }
         }
       },
-      "BasicRemediationConfiguration": {
+	  "BasicRemediationConfiguration": {
         "Type": "AWS::Config::RemediationConfiguration",
         "Properties": {
             "ConfigRuleName": {"Ref": "ConfigRuleName"},
@@ -60,26 +55,50 @@
             "Parameters": {
                 "AutomationAssumeRole": {
                     "StaticValue": {
-                        "Values": [
-                          {"Fn::Sub":  "arn:aws:iam::${AWS::AccountId}:role/aws-service-role/remediation.config.amazonaws.com/AWSServiceRoleForConfigRemediation"}
-                        ]
+                        "Values": [{"Fn::GetAtt" : ["RemediationActionRole", "Arn"] }]
                     }
                 },
-                "DbInstanceResourceId": {
+                "ApplyImmediately": {
                     "StaticValue": {
-                        "Values": [
-                            {"Ref": "DbInstanceResourceId"}
-                        ]
+                        "Values": ["true"]
+                    }
+                },
+				"DbClusterResourceId": {
+                     "ResourceValue": {
+                        "Value": "RESOURCE_ID"
                     }
                 }
             },
-            "TargetId": "AWSConfigRemediation-EnableRDSInstanceDeletionProtection",
+            "TargetId": "AWSConfigRemediationEnableRDSClusterDeletionProtection",
             "TargetType": "SSM_DOCUMENT",
             "TargetVersion": "1",
             "MaximumAutomaticAttempts": 3,
             "RetryAttemptSeconds": 30
 
         }
-    }
+      },
+	  "RemediationActionRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "AssumeRolePolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": [
+                                    "ssm.amazonaws.com"
+                                ]
+                            },
+                            "Action": [
+                                "sts:AssumeRole"
+                            ]
+                        }
+                    ]
+                },
+                "Path": "/",
+                "ManagedPolicyArns": ["arn:aws:iam::aws:policy/AmazonRDSFullAccess"]
+            }
+        }
     }
   }

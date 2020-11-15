@@ -7,11 +7,6 @@
           "MinLength": "1",
           "ConstraintDescription": "This parameter is required."
         },
-        "ConfigRole":{
-            "Type": "String",
-            "Description": " Use an existing AWS Config service-linked role ARN",
-            "Default":  "arn:aws:iam::${AWS::AccountId}:role/aws-service-role/config.amazonaws.com/AWSServiceRoleForConfig"
-        },
         "CreateRecorderForRDS":{
             "Type": "String",
             "Description": "Create Config recorder for RDS",
@@ -51,6 +46,59 @@
             "SourceIdentifier": "RDS_INSTANCE_DELETION_PROTECTION_ENABLED"
           }
         }
-      }
+      },
+	  "BasicRemediationConfiguration": {
+        "Type": "AWS::Config::RemediationConfiguration",
+        "Properties": {
+            "ConfigRuleName": {"Ref": "ConfigRuleName"},
+            "Automatic": true,
+            "Parameters": {
+                "AutomationAssumeRole": {
+                    "StaticValue": {
+                        "Values": [{"Fn::GetAtt" : ["RemediationActionRole", "Arn"] }]
+                    }
+                },
+                "ApplyImmediately": {
+                    "StaticValue": {
+                        "Values": ["true"]
+                    }
+                },
+				"DbInstanceResourceId": {
+                     "ResourceValue": {
+                        "Value": "RESOURCE_ID"
+                    }
+                }
+            },
+            "TargetId": "AWSConfigRemediation-EnableRDSInstanceDeletionProtection",
+            "TargetType": "SSM_DOCUMENT",
+            "TargetVersion": "1",
+            "MaximumAutomaticAttempts": 3,
+            "RetryAttemptSeconds": 30
+
+        }
+      },
+	  "RemediationActionRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "AssumeRolePolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": [
+                                    "ssm.amazonaws.com"
+                                ]
+                            },
+                            "Action": [
+                                "sts:AssumeRole"
+                            ]
+                        }
+                    ]
+                },
+                "Path": "/",
+                "ManagedPolicyArns": ["arn:aws:iam::aws:policy/AmazonRDSFullAccess"]
+            }
+        }	  
     }
   }
