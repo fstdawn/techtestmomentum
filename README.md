@@ -99,10 +99,14 @@ To deploy "rds-instance-deletion-protection-enabled", which has default SSM docu
 
 Deploy 'cfn/testtemplate1.json' which will deploy config rule and remediation action. Update the parameter CreateRecorderForRDS as 'true' if the config recorder is not enabled.
 Details on how to deploy Cloudformation in the below link
-CLI - aws cloudformation deploy --template-file ./cfn/testtemplate1.json --stack-name my-new-stack
+
 - https://docs.aws.amazon.com/cli/latest/reference/cloudformation/deploy/index.html
 
 - https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-create-stack.html
+
+```
+CLI - aws cloudformation deploy --template-file ./cfn/testtemplate1.json --stack-name my-new-stack
+```
 
 Note: cfn/testtemplate.json deploys config rule evaluation for rds-cluster-deletion-protection-enabled. However, there is no default remediation document available. An SSM document needs to be created for remediation action and is in TODO...
 
