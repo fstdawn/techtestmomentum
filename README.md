@@ -7,7 +7,7 @@ Pre-requisites
 
 -   Install opa: https://learn.hashicorp.com/tutorials/terraform/install-cli
 
->>>>
+```
 -	On macOS (64-bit):
     curl -L -o opa https://openpolicyagent.org/downloads/latest/opa_darwin_amd64
 
@@ -17,7 +17,7 @@ Pre-requisites
 -	chmod 755 ./opa
 
 -  sudo mv ./opa /usr/local/bin/opa
->>>>
+```
 
 - Clone or Download the repo: https://github.com/fstdawn/techtestmomentum
 	git clone: https://github.com/fstdawn/techtestmomentum.git
