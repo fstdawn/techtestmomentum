@@ -6,21 +6,21 @@ Pre-requisites
 -   Install Terraform: https://learn.hashicorp.com/tutorials/terraform/install-cli
 
 -   Install opa: https://learn.hashicorp.com/tutorials/terraform/install-cli
------
-1>  On macOS (64-bit):
+
+>>>>
+-	On macOS (64-bit):
     curl -L -o opa https://openpolicyagent.org/downloads/latest/opa_darwin_amd64
 
     On Linux (64-bit):
     curl -L -o opa https://openpolicyagent.org/downloads/latest/opa_linux_amd64
 
-2> chmod 755 ./opa
+-	chmod 755 ./opa
 
-3>  sudo mv ./opa /usr/local/bin/opa
-----
+-  sudo mv ./opa /usr/local/bin/opa
+>>>>
 
 - Clone or Download the repo: https://github.com/fstdawn/techtestmomentum
-
-git clone: https://github.com/fstdawn/techtestmomentum.git
+	git clone: https://github.com/fstdawn/techtestmomentum.git
 
 
 To create an AWS environment with a VPC & two subnets
