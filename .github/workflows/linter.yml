@@ -52,5 +52,5 @@ jobs:
         env:
           VALIDATE_ALL_CODEBASE: true
           DEFAULT_BRANCH: master
-          VALIDATE_TERRAFORM_TERRASCAN: true
+          VALIDATE_TERRAFORM: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
