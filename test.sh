@@ -5,6 +5,8 @@
 ##########################################################################
 
 TFLINT_VERSION=0.23.1
+pwd
+ls -al
 TF_DIRS=("vpc/")
 curl https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
 
