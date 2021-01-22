@@ -5,7 +5,7 @@
 ##########################################################################
 
 TFLINT_VERSION=0.23.1
-TF_DIRS=("module/nsxt/" "module/sddc/" "${ENV_NAME}/")
+TF_DIRS=("vpc/")
 curl https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
 
 for tf_directory in "${TF_DIRS[@]}"
