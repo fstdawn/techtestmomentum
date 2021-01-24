@@ -25,7 +25,7 @@ resource "aws_vpc" "my_vpc" {
     Project = var.project
   }
 }
-// test
+
 resource "aws_internet_gateway" "inet_gw" {
   vpc_id = aws_vpc.my_vpc.id
 
