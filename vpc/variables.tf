@@ -45,7 +45,7 @@ variable "project" {
 variable "availability_zones" {
   description = "A list of availability zones names or ids in the region"
   type        = list(string)
-  default     = ["eu-west-1a", "eu-west-1b"]
+  default     = ["us-west-1a", "us-west-1b"]
 }
 
 variable "public_subnet_cidr" {
